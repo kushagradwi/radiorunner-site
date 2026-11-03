@@ -7,7 +7,7 @@
 <meta name="description" content="RadioRunner turns every run into a live broadcast. Friends tune in and cheer, Jock builds your plan, and every workout is graded against it.">
 <meta property="og:title" content="RadioRunner">
 <meta property="og:description" content="Run live. Train with purpose. An AI coach, live broadcasts and plan-graded workouts for runners and endurance athletes.">
-<meta property="og:image" content="https://radiorunner.xyz/img/tunein.jpg">
+<meta property="og:image" content="https://radiorunner.xyz/img/jock.jpg">
 <meta name="theme-color" content="#07080A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307080A'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23FF3B3B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,6 +85,11 @@
   .shots { display: flex; gap: 16px; justify-content: center; }
   .shots .phone { width: min(240px, 46%); }
 
+  .tiles { display: grid; gap: 12px; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; display: grid; gap: 6px; }
+  .tile b { font-size: 20px; letter-spacing: -.02em; }
+  .tile > span:last-child { color: var(--muted); }
+
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; margin: 0 0 96px; }
   .stat { background: var(--bg); padding: 32px; }
   .stat b { display: block; font-size: 44px; letter-spacing: -.03em; font-weight: 800; }
@@ -105,7 +110,12 @@
     .phones { padding-right: 60px; }
     .phones .phone:first-child { transform: rotate(-3deg); width: 220px; }
     .phones .phone:nth-child(2) { width: 170px; top: 40px; }
-    .stats { grid-template-columns: 1fr; }
+    .tiles { display: grid; gap: 12px; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; display: grid; gap: 6px; }
+  .tile b { font-size: 20px; letter-spacing: -.02em; }
+  .tile > span:last-child { color: var(--muted); }
+
+  .stats { grid-template-columns: 1fr; }
     header .chip { display: none; }
   }
 </style>
@@ -134,8 +144,8 @@
       </div>
     </div>
     <div class="phones">
-      <div class="phone"><img src="img/tunein.jpg" alt="Watching a friend's live run: pace, heart rate, route map and live chat" width="540" height="1200"></div>
-      <div class="phone"><img src="img/live.jpg" alt="The Live tab listing runners broadcasting now" width="540" height="1200" loading="lazy"></div>
+      <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="540" height="1200"></div>
+      <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="540" height="1200" loading="lazy"></div>
     </div>
   </div>
 
@@ -151,9 +161,10 @@
           <li>Running, cycling, swimming and strength</li>
         </ul>
       </div>
-      <div class="shots">
-        <div class="phone"><img src="img/live.jpg" alt="Live tab with runners broadcasting" width="540" height="1200" loading="lazy"></div>
-        <div class="phone"><img src="img/tunein.jpg" alt="Live run detail with chat" width="540" height="1200" loading="lazy"></div>
+      <div class="tiles">
+        <div class="tile"><span class="mono kicker">On air</span><b>Live map &amp; pace</b><span>Followers see where you are and how you're moving, in real time.</span></div>
+        <div class="tile"><span class="mono kicker">Cheers</span><b>Support mid-run</b><span>Cheers and messages reach you while you're still running.</span></div>
+        <div class="tile"><span class="mono kicker">Every sport</span><b>Run, ride, swim, lift</b><span>Broadcast any endurance session, not just runs.</span></div>
       </div>
     </div>
   </section>
@@ -204,7 +215,6 @@
       </div>
       <div class="shots">
         <div class="phone"><img src="img/share.jpg" alt="Share studio with a run poster" width="540" height="1200" loading="lazy"></div>
-        <div class="phone"><img src="img/discover.jpg" alt="Discover tab with group runs starting soon" width="540" height="1200" loading="lazy"></div>
       </div>
     </div>
   </section>
