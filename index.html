@@ -70,7 +70,7 @@
     border: 1px solid var(--line); background: var(--surface);
     box-shadow: 0 40px 80px -30px rgba(34, 211, 238, .25);
   }
-  .phone img { width: 100%; height: 100%; object-fit: cover; }
+  .phone img, .phone video { display: block; width: 100%; height: 100%; object-fit: cover; }
   .phones .phone:first-child { width: var(--pw); position: relative; z-index: 1; }
   .phones .phone:nth-child(2) { width: calc(var(--pw) * .82); margin: 48px 0 0 -48px; box-shadow: 0 40px 80px -30px rgba(255, 59, 59, .3); }
 
@@ -136,8 +136,8 @@
       </div>
     </div>
     <div class="phones">
-      <div class="phone"><img src="img/dashboard.jpg" alt="Live runner dashboard: pace, heart rate, live location and chat" width="1080" height="2400"></div>
-      <div class="phone"><img src="img/observatory.jpg" alt="Live Observatory listing runners broadcasting now" width="1080" height="2400"></div>
+      <div class="phone"><video src="video/dashboard.mp4" poster="video/dashboard.jpg" autoplay muted loop playsinline preload="auto" aria-label="Live runner dashboard: pace, heart rate, live location and chat"></video></div>
+      <div class="phone"><video src="video/observatory.mp4" poster="video/observatory.jpg" autoplay muted loop playsinline preload="auto" aria-label="Live Observatory listing runners broadcasting now"></video></div>
     </div>
   </div>
 
@@ -154,8 +154,8 @@
         </ul>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/observatory.jpg" alt="Live Observatory listing runners broadcasting now" width="1080" height="2400" loading="lazy"></div>
-        <div class="phone"><img src="img/dashboard.jpg" alt="Live runner dashboard with live chat" width="1080" height="2400" loading="lazy"></div>
+        <div class="phone"><video data-src="video/stats.mp4" poster="video/stats.jpg" muted loop playsinline preload="none" aria-label="Live pace, heart rate and cadence charts, then splits"></video></div>
+        <div class="phone"><video data-src="video/multisport.mp4" poster="video/multisport.jpg" muted loop playsinline preload="none" aria-label="Live ride and swim broadcasts alongside runs"></video></div>
       </div>
     </div>
   </section>
@@ -173,8 +173,8 @@
         </ul>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="1080" height="2400" loading="lazy"></div>
-        <div class="phone"><img src="img/workout.jpg" alt="Workout designer with step-by-step structure" width="1080" height="2400" loading="lazy"></div>
+        <div class="phone"><video data-src="video/jock.mp4" poster="video/jock.jpg" muted loop playsinline preload="none" aria-label="Jock proposing a dated 10K training plan"></video></div>
+        <div class="phone"><video data-src="video/workout.mp4" poster="video/workout.jpg" muted loop playsinline preload="none" aria-label="Workout designer with step-by-step structure"></video></div>
       </div>
     </div>
   </section>
@@ -192,7 +192,7 @@
         </ul>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="1080" height="2400" loading="lazy"></div>
+        <div class="phone"><video data-src="video/report.mp4" poster="video/report.jpg" muted loop playsinline preload="none" aria-label="Execution report grading a run against its plan"></video></div>
       </div>
     </div>
   </section>
@@ -205,7 +205,7 @@
         <p>Turn any run into a share card: city posters, minimal route art or full split breakdowns, sized for stories and feeds.</p>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/share.jpg" alt="Share studio with a run poster" width="1080" height="2400" loading="lazy"></div>
+        <div class="phone"><video data-src="video/share.mp4" poster="video/share.jpg" muted loop playsinline preload="none" aria-label="Share studio switching between poster templates"></video></div>
       </div>
     </div>
   </section>
@@ -234,5 +234,27 @@
   </div>
 </footer>
 
+<script>
+  // Hero clips autoplay; the rest load and play only while on screen.
+  (() => {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hero = document.querySelectorAll('.hero video');
+    if (reduce) hero.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+    const lazy = document.querySelectorAll('video[data-src]');
+    if (reduce || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src) { v.src = v.dataset.src; }
+          v.play().catch(() => {});
+        } else if (v.src) {
+          v.pause();
+        }
+      }
+    }, { rootMargin: '200px 0px' });
+    lazy.forEach(v => io.observe(v));
+  })();
+</script>
 </body>
 </html>
