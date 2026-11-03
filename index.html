@@ -55,7 +55,8 @@
   .chip .dot { width: 7px; height: 7px; }
 
   /* Hero */
-  .hero { padding: 48px 0 96px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  /* Phone height tracks the viewport so the hero fits above the fold on short laptop screens. */
+  .hero { --pw: clamp(190px, calc((100svh - 190px) * .45), 280px); min-height: calc(100svh - 110px); padding: 8px 0 72px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
   .hero h1 { font-size: clamp(40px, 6.4vw, 76px); line-height: 1.02; letter-spacing: -.04em; font-weight: 800; }
   .hero h1 em { font-style: normal; background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero p { margin-top: 24px; font-size: 19px; color: var(--muted); max-width: 32em; }
@@ -63,14 +64,15 @@
   .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; }
   .btn-primary { background: var(--text); color: var(--bg); }
   .btn-ghost { border: 1px solid var(--line); color: var(--text); }
-  .phones { position: relative; display: flex; justify-content: center; }
+  .phones { position: relative; display: flex; justify-content: center; align-items: flex-start; }
   .phone {
-    width: 260px; border-radius: 34px; overflow: hidden;
+    width: 260px; aspect-ratio: 9 / 20; border-radius: 30px; overflow: hidden;
     border: 1px solid var(--line); background: var(--surface);
     box-shadow: 0 40px 80px -30px rgba(34, 211, 238, .25);
   }
-  .phones .phone:nth-child(2) { position: absolute; right: 0; top: 60px; width: 210px; transform: rotate(4deg); opacity: .9; box-shadow: 0 40px 80px -30px rgba(255, 59, 59, .3); }
-  .phones .phone:first-child { transform: translateX(-50px) rotate(-3deg); position: relative; z-index: 1; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; }
+  .phones .phone:first-child { width: var(--pw); position: relative; z-index: 1; }
+  .phones .phone:nth-child(2) { width: calc(var(--pw) * .82); margin: 48px 0 0 -48px; box-shadow: 0 40px 80px -30px rgba(255, 59, 59, .3); }
 
   /* Sections */
   section.feature { padding: 88px 0; border-top: 1px solid var(--line); }
@@ -105,11 +107,8 @@
 
   @media (max-width: 860px) {
     .hero, .feature .wrap { grid-template-columns: 1fr; gap: 40px; }
-    .hero { padding-top: 16px; }
+    .hero { --pw: 196px; min-height: 0; padding-top: 16px; }
     .feature.flip .copy { order: 0; }
-    .phones { padding-right: 60px; }
-    .phones .phone:first-child { transform: rotate(-3deg); width: 220px; }
-    .phones .phone:nth-child(2) { width: 170px; top: 40px; }
     .tiles { display: grid; gap: 12px; }
   .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; display: grid; gap: 6px; }
   .tile b { font-size: 20px; letter-spacing: -.02em; }
@@ -144,8 +143,8 @@
       </div>
     </div>
     <div class="phones">
-      <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="540" height="1200"></div>
-      <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="540" height="1200" loading="lazy"></div>
+      <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="1080" height="2400"></div>
+      <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="1080" height="2400" loading="lazy"></div>
     </div>
   </div>
 
@@ -182,8 +181,8 @@
         </ul>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="540" height="1200" loading="lazy"></div>
-        <div class="phone"><img src="img/workout.jpg" alt="Workout designer with step-by-step structure" width="540" height="1200" loading="lazy"></div>
+        <div class="phone"><img src="img/jock.jpg" alt="Jock proposing a dated 10K training plan" width="1080" height="2400" loading="lazy"></div>
+        <div class="phone"><img src="img/workout.jpg" alt="Workout designer with step-by-step structure" width="1080" height="2400" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -201,7 +200,7 @@
         </ul>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="540" height="1200" loading="lazy"></div>
+        <div class="phone"><img src="img/report.jpg" alt="Execution report grading a run against its plan" width="1080" height="2400" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -214,7 +213,7 @@
         <p>Turn any run into a share card: city posters, minimal route art or full split breakdowns, sized for stories and feeds.</p>
       </div>
       <div class="shots">
-        <div class="phone"><img src="img/share.jpg" alt="Share studio with a run poster" width="540" height="1200" loading="lazy"></div>
+        <div class="phone"><img src="img/share.jpg" alt="Share studio with a run poster" width="1080" height="2400" loading="lazy"></div>
       </div>
     </div>
   </section>
